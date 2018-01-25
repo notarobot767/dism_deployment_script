@@ -14,6 +14,10 @@ class SysFun:
   def _verifyOptionArryResponse(self, arry, response):
     return response.isnumeric() and int(response) > 0 and int(response) < len(arry)
 
+  #take in array of items and ennumerate them and ask user to select one
+  #position 0 is the menu name and not an item
+  #user is forced to select a vaild item
+  #example ["Main Menu", "thing1", "think2"]
   def selectOptionArry(self, arry, msg="select option"):
     while True:
       print(self._returnOptionArryStr(arry))
@@ -34,6 +38,8 @@ class SysFun:
   def cd(self, directory):
     var = subprocess.call("cd {0}".format(directory), shell=True)
 
+  #yes or no prompt
+  #return true of false
   def confirm(self, msg="continue? [y/n]: "):
     while True:
       choice = input(msg).strip().lower()
@@ -42,17 +48,22 @@ class SysFun:
       if choice == "n":
         return False
 
+  #holder function for works in progress
   def wip(self):
     self.exit("work in progress!")
 
+  #mount a netshare using the volume letter found in default.netshare_vol
   def connectNetshare(self, default):
     cmd = "net use {0}: {1}".format(default.netshare_vol, default.netshare)
     var = subprocess.call(cmd, shell=True)
 
+  #unmount the netshare volumed found in default.netshare_vol
   def disconnectNetshare(self):
     cmd = "net use {0}: /delete".format(default.netshare_vol)
     var = subprocess.call(cmd, shell=True)
 
+  #return list of disk with list of disk number in assending order
+  #example [["0", "generic disk"], ["1", "samsung something 512GB"]]
   def return_disk_list(self):
     path = r"powershell dism_wizzard\ps\list_disks.ps1"
     disks = subprocess.Popen(path, shell=True, stdout=subprocess.PIPE).stdout.read().decode().strip()
@@ -65,6 +76,8 @@ class SysFun:
     disks = list(map(fix, disks.split("\r\n\r")))
     return disks
 
+  #return list of volumes currently in use (drive letters)
+  #example ["C", "D", "N"]
   def return_vol_list(self):
     path = r"powershell dism_wizzard\ps\list_volumes.ps1"
     vols = subprocess.Popen(path, shell=True, stdout=subprocess.PIPE).stdout.read().decode().strip()
@@ -73,6 +86,7 @@ class SysFun:
     vols = list(map(fix, vols.split("\r\n\r")))
     return [item for sublist in vols for item in sublist]
 
+  #print message before exiting program
   def exit(self, error):
     print(error)
     self.pause()
