@@ -1,4 +1,5 @@
 import subprocess
+from ..system_functions import SysFun
 from .default_settings import DefaultSettings
 from .select_disk import selectDisk
 from .select_partitioning import selectPartitioning
@@ -14,6 +15,8 @@ def main():
     default.is_UEFI = selectPartitioning()
   if default.prompt_select_wim_source:
     selectWimSource(default)
+  if default.is_wim_source_netshare:
+    SysFun().connectNetshare(default)
   if default.prompt_select_wim_image:
     selectWimImage(default)
 

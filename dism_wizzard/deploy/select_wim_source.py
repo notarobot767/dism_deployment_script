@@ -19,6 +19,7 @@ def enterNetshare(default):
         return netshare
       print("unable to find netshare!")
       SysFun().pause()
+      print("nope")
 
 def selectWimSource(default):
   SysFun().cls()
@@ -37,4 +38,4 @@ def selectWimSource(default):
   else:
     default.is_wim_source_netshare = True
     default.netshare = enterNetshare(default)
-    default.wim_source = default.netshare_vol
+    default.wim_source = default.netshare_vol + ":"

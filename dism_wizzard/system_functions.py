@@ -42,6 +42,13 @@ class SysFun:
       if choice == "n":
         return False
 
+  def connectNetshare(self, default):
+    cmd = "net use {0}: {1}".format(default.netshare_vol, default.netshare)
+    var = subprocess.call(cmd, shell=True)
+
+  def disconnectNetshare(self):
+    cmd = "net use {0}: /delete".format(default.netshare_vol)
+    var = subprocess.call(cmd, shell=True)
 
   def return_disk_list(self):
     path = r"powershell dism_wizzard\ps\list_disks.ps1"
