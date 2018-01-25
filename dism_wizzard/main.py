@@ -27,3 +27,7 @@ def main():
   while True:
     SysFun().cls()
     main_menu[SysFun().selectOptionArry(list(map(fix, main_menu)))][fun_pos]()
+
+  #from .deploy.deploy_image import deployImage
+  #from .default_settings import DefaultSettings
+  #deployImage(DefaultSettings())

@@ -15,7 +15,7 @@ class DefaultSettings:
     self.wim_image = "OG.wim"
     self.wim_source = "N:"
     self.is_wim_source_netshare = True
-    self.index_index = 1
+    self.wim_index = 1
       #assumes wim has a index of the this value
     self.netshare = r"\\dropzone\anonymous\wim /user:user pass"
       #even if the netshare is not password protected, Windows
@@ -29,9 +29,9 @@ class DefaultSettings:
     #############
     self.disk = 0
     self.is_UEFI = True
-    self.createUEFI_script = "diskpart\createUEFI.bat"
-    self.createMBR_script = "diskpart\createMBR.bat"
-    self.dynamic_diskscript = "diskpart\dynamic_diskscript.bat"
+    self.createUEFI_script = r"dism_wizzard\diskpart\createUEFI.bat"
+    self.createMBR_script = r"dism_wizzard\diskpart\createMBR.bat"
+    self.dynamic_diskscript = r"dism_wizzard\diskpart\dynamic_diskscript.bat"
      #diskscript is the dynamic diskpart script built using the
      #default_disk and either the default create UEFI or MBR 
 

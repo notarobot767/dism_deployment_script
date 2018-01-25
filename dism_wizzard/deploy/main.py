@@ -8,6 +8,7 @@ from .select_wim_source import selectWimSource
 from .select_wim_image import selectWimImage
 from .select_high_power_scheme import selectHighPowerScheme
 from .confirm_apply import confirmApply
+from .deploy_image import deployImage
 
 def main(default=DefaultSettings()):
   if default.prompt_select_disk:
@@ -26,6 +27,9 @@ def main(default=DefaultSettings()):
     if not confirmApply(default):
       sys.exit()
 
-  #deploy(default)
+  if default.is_wim_source_netshare:
+    SysFun().disconnectNetshare(default)
+
+  deployImage(default)
   
   var = subprocess.call("pause", shell=True)
