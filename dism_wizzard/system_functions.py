@@ -42,6 +42,9 @@ class SysFun:
       if choice == "n":
         return False
 
+  def wip(self):
+    self.exit("work in progress!")
+
   def connectNetshare(self, default):
     cmd = "net use {0}: {1}".format(default.netshare_vol, default.netshare)
     var = subprocess.call(cmd, shell=True)
