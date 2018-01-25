@@ -1,5 +1,6 @@
 from . import deploy
 from . import pwedit
+from .default_settings import DefaultSettings
 from .wpeutil import Wpeutil
 import sys
 
@@ -13,7 +14,7 @@ class Menu:
     "Shutdown"         #5
   ]
   main_switch = {
-    1 : deploy.main,
+    1 : deploy.main(DefaultSettings()),
     2 : pwedit.main,
     3 : sys.exit,
     4 : Wpeutil().restart,
