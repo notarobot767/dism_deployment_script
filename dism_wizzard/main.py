@@ -1,9 +1,7 @@
-#from default_settings import DefaultSettings
 from .system_functions import SysFun
 from . import deploy
 from . import pwedit
 from .wpeutil import Wpeutil
-from .system_functions import SysFun
 import sys
 
 def main():

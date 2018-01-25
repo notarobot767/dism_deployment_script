@@ -62,8 +62,8 @@ class SysFun:
     cmd = "net use {0}: /delete".format(default.netshare_vol)
     var = subprocess.call(cmd, shell=True)
 
-  #return list of disk with list of disk number in assending order
-  #example [["0", "generic disk"], ["1", "samsung something 512GB"]]
+  #return list of strings of disks and associated names in order assending
+  #example ["Disk 0: generic disk", "Disk 1: samsung something 512GB"]
   def return_disk_list(self):
     path = r"powershell dism_wizzard\ps\list_disks.ps1"
     disks = subprocess.Popen(path, shell=True, stdout=subprocess.PIPE).stdout.read().decode().strip()

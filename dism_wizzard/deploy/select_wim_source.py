@@ -33,9 +33,9 @@ def selectWimSource(default):
   choice = SysFun().selectOptionArry(wim_source)
   if choice == 1:
     default.is_wim_source_netshare = False
-    default.wim_source = findLocalWimSource(default)
+    return findLocalWimSource(default)
 
   else:
     default.is_wim_source_netshare = True
     default.netshare = enterNetshare(default)
-    default.wim_source = default.netshare_vol + ":"
+    return default.netshare_vol + ":"

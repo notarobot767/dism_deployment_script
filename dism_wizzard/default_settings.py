@@ -62,3 +62,6 @@ class DefaultSettings:
       #when using the diskpart command
     self.select_option = "select option"
       #message to display when more than one option to choose from
+
+  def getWim(self):
+    return "{0}\\{1}".format(self.wim_source, self.wim_image)
