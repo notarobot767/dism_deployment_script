@@ -20,8 +20,7 @@ class DefaultSettings:
     self.netshare = r"\\dropzone\anonymous\wim /user:user pass"
       #even if the netshare is not password protected, Windows
       #may require a bogus user and pw in order to connect
-      #self.local_wim_dir = r"_images"
-    self.local_wim_dir = r"Users\Noah.Ogrydziak\Downloads\dism_wizzard\images"
+    self.local_wim_dir = r"_images"
       #findLocalWimSource will attempt to find this dir amoung
       #the available volumes
       #store your wim files in this folder in the root dir of your drive
@@ -60,8 +59,6 @@ class DefaultSettings:
       #the default encoding in PS is unicode which does not play
       #nice with some applications when reading script files such as
       #when using the diskpart command
-    self.select_option = "select option"
-      #message to display when more than one option to choose from
 
   def getWim(self):
     return "{0}\\{1}".format(self.wim_source, self.wim_image)
