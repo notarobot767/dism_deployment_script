@@ -54,11 +54,19 @@ class SysFun:
 
   #mount a netshare using the volume letter found in default.netshare_vol
   def connectNetshare(self, default):
+    self.cls()
+    print("connecting to '{0}'\nand mounting as '{1}:'".format(  
+      default.netshare,
+      default.netshare_vol
+      )
+    )
     cmd = "net use {0}: {1}".format(default.netshare_vol, default.netshare)
     var = subprocess.call(cmd, shell=True)
+    if default.prompt_pause_after_connecting_netshare:
+      self.confirm()
 
   #unmount the netshare volumed found in default.netshare_vol
-  def disconnectNetshare(self):
+  def disconnectNetshare(self, default):
     cmd = "net use {0}: /delete".format(default.netshare_vol)
     var = subprocess.call(cmd, shell=True)
 

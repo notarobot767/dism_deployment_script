@@ -2,6 +2,9 @@ from ..system_functions import SysFun
 import sys
 
 def confirmApply(default):
+  SysFun().cls()
+  print("loading...")
+
   my_str = "About to:\n\n"
   
   #disk
