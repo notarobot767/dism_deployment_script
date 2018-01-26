@@ -6,6 +6,7 @@ from .select_disk import selectDisk
 from .select_partitioning import selectPartitioning
 from .select_wim_source import selectWimSource
 from .select_wim_image import selectWimImage
+from .select_install_drivers import selectInstallDrivers
 from .select_high_power_scheme import selectHighPowerScheme
 from .confirm_apply import confirmApply
 from .deploy_image import deployImage
@@ -25,6 +26,9 @@ def main(default=DefaultSettings()):
 
   if default.prompt_select_wim_image:
     default.wim_image = selectWimImage(default)
+
+  if default.prompt_install_drivers_if_any:
+    default.install_drivers_if_any = selectInstallDrivers()
   
   if default.prompt_use_high_power_scheme:
     default.use_high_power_scheme = selectHighPowerScheme()

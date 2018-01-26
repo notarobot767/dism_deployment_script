@@ -27,6 +27,14 @@ def applyImage(default):
     )
   )
 
+def applyDrivers(default):
+  if default.install_drivers_if_any and default.isDriverFolderPresent():
+    print("dism /Image:{0} /Add-Driver /Driver:{1} /Recurse".format(
+      default.getWim(),
+      default.getDriverFolder()
+      )
+    )
+
 def applyBCDBoot(default):
   if default.is_UEFI:
     mode = "UEFI"
@@ -44,4 +52,5 @@ def deployImage(default):
   applyPartitioning(default)
   applyHighPowerScheme(default)
   applyImage(default)
+  applyDrivers(default)
   applyBCDBoot(default)
