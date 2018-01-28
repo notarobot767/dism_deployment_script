@@ -30,13 +30,13 @@ class SysFun:
     return open(file_name, "r").read()
 
   def cls(self):
-    var = subprocess.call("cls", shell=True)
+    self.run("cls")
 
   def pause(self):
-    var = subprocess.call("pause", shell=True)
+    self.run("pause")
 
   def cd(self, directory):
-    var = subprocess.call("cd {0}".format(directory), shell=True)
+    self.run("cd {0}".format(directory))
 
   #yes or no prompt
   #return true of false
@@ -47,6 +47,9 @@ class SysFun:
         return True
       if choice == "n":
         return False
+
+  def run(self, cmd):
+    var = subprocess.call(cmd, shell=True)
 
   #holder function for works in progress
   def wip(self):
@@ -61,14 +64,14 @@ class SysFun:
       )
     )
     cmd = "net use {0}: {1}".format(default.netshare_vol, default.netshare)
-    var = subprocess.call(cmd, shell=True)
+    self.run(cmd)
     if default.prompt_pause_after_connecting_netshare:
       self.confirm()
 
   #unmount the netshare volumed found in default.netshare_vol
   def disconnectNetshare(self, default):
     cmd = "net use {0}: /delete".format(default.netshare_vol)
-    var = subprocess.call(cmd, shell=True)
+    self.run(cmd)
 
   #return list of strings of disks and associated names in order assending
   #example ["Disk 0: generic disk", "Disk 1: samsung something 512GB"]
