@@ -1,5 +1,6 @@
-import sys
-sys.path.append(r"X:\tools")
+#import sys
+#sys.path.append(r"X:\tools")
+#uncomment when live
 
 import dism_wizzard
 

@@ -1,0 +1,2 @@
+echo exit | CALL C:\Windows\system32\cmd.exe /k "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\DandISetEnv.bat"
+MakeWinPEMedia /ISO C:\WinPE_amd64_PS C:\WinPE_amd64\WinPE_amd64_PS.iso

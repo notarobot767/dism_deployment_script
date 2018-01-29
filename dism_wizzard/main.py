@@ -1,6 +1,7 @@
 from .system_functions import SysFun
 from . import deploy
 from . import pwedit
+from . import wim_manager
 from .wpeutil import Wpeutil
 import sys
 
@@ -14,6 +15,7 @@ def main():
     ["Deploy Image", deploy.main],
     ["Express Image Deployment", SysFun().wip],
     ["Password Editor", pwedit.main],
+    ["WinPE Wim Manager", wim_manager.main],
     ["Powershell", sys.exit],
     ["Restart", Wpeutil().restart],
     ["Shutdown", Wpeutil().shutdown]
@@ -27,7 +29,4 @@ def main():
   while True:
     SysFun().cls()
     main_menu[SysFun().selectOptionArry(list(map(fix, main_menu)))][fun_pos]()
-
-  #from .deploy.deploy_image import deployImage
-  #from .default_settings import DefaultSettings
-  #deployImage(DefaultSettings())
+    
