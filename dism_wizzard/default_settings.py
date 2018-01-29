@@ -55,13 +55,13 @@ class DefaultSettings:
 
     #prompted user for the following or use the defaults?
     #####################################################
-    self.prompt_select_disk = False
-    self.prompt_select_partitioning = False
+    self.prompt_select_disk = True
+    self.prompt_select_partitioning = True
     self.prompt_select_wim_source = True
     self.prompt_select_wim_image = True
     self.prompt_pause_after_connecting_netshare = True
     self.prompt_install_drivers_if_any = True
-    self.prompt_use_high_power_scheme = False
+    self.prompt_use_high_power_scheme = True
     self.prompt_confirm_before_applying_image = True
 
     #power scheme
