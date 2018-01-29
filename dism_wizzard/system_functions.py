@@ -66,7 +66,8 @@ class SysFun:
     cmd = "net use {0}: {1}".format(default.netshare_vol, default.netshare)
     self.run(cmd)
     if default.prompt_pause_after_connecting_netshare:
-      self.confirm()
+      if not self.confirm():
+        sys.exit()
 
   #unmount the netshare volumed found in default.netshare_vol
   def disconnectNetshare(self, default):

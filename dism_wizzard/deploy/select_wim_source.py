@@ -15,11 +15,7 @@ def enterNetshare(default):
     if netshare == "":
       netshare = default.netshare
     if SysFun().confirm():
-      if os.path.exists(netshare.strip().split()[0]):
-        return netshare
-      print("unable to find netshare!")
-      SysFun().pause()
-      print("nope")
+      return netshare
 
 def selectWimSource(default):
   SysFun().cls()
