@@ -10,7 +10,7 @@ def main():
     ["Unmount & Commit Changes", manager.unmountImageCommit],
     ["Unmount & Discard Changes", manager.unmountImageDiscard],
     ["Write ISO", manager.writeISO],
-    ["Write to Bootable USB", SysFun().wip],
+    ["Write to Bootable USB (WIP)", SysFun().wip],
     ["Create PE", manager.copype],
     ["back..."]
   ]

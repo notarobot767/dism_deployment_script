@@ -74,6 +74,10 @@ class SysFun:
     cmd = "net use {0}: /delete".format(default.netshare_vol)
     self.run(cmd)
 
+  def startPS(self):
+    cmd = "CALL powershell"
+    self.run(cmd)
+
   #return list of strings of disks and associated names in order assending
   #example ["Disk 0: generic disk", "Disk 1: samsung something 512GB"]
   def return_disk_list(self):

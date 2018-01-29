@@ -16,7 +16,7 @@ def main():
     ["Express Image Deployment", SysFun().wip],
     ["Password Editor", pwedit.main],
     ["WinPE Wim Manager", wim_manager.main],
-    ["Powershell", sys.exit],
+    ["Powershell", SysFun().startPS],
     ["Restart", Wpeutil().restart],
     ["Shutdown", Wpeutil().shutdown]
   ]
@@ -29,4 +29,3 @@ def main():
   while True:
     SysFun().cls()
     main_menu[SysFun().selectOptionArry(list(map(fix, main_menu)))][fun_pos]()
-    
