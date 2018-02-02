@@ -75,6 +75,7 @@ class SysFun:
     self.run(cmd)
 
   def startPS(self):
+    self.cls()
     cmd = "CALL powershell"
     self.run(cmd)
 

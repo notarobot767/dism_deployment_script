@@ -72,9 +72,15 @@ class DefaultSettings:
       #use when depoying a WIM using DISM (optional speedup)
       #https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-mount-and-customize#highperformance
 
+    #PE
+    self.pe_image_dir = r"C:\WinPE_amd64_PS"
+      #in Wim manager where working direcotry for the WinPE image will live
+    self.adk_dir = r"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit"
+      #default location of ADK
+      
     #misc
     #####
-    self.encoding = "utf8"
+    self.encoding = r"utf8"
       #the default encoding in PS is unicode which does not play
       #nice with some applications when reading script files such as
       #when using the diskpart command

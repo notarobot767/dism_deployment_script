@@ -1,4 +1,6 @@
+import os.path
 from ..system_functions import SysFun
+from ..default_settings import DefaultSettings
 
 class WimManager:
   def __init__(self, imagedir=r"C:\WinPE_amd64_PS"):
@@ -18,19 +20,45 @@ class WimManager:
       "WinPE-DismCmdlets.cab",
       "en-us\WinPE-DismCmdlets_en-us.cab"
       ]
+    self._autoCreate(self.imagedir)
   
+  def _autoCreate(self, imagedir):
+    if not os.path.exists(imagedir):
+      SysFun().cls()
+      print("PE image directory not found!")
+      if SysFun().confirm("build one in using default directory ['{0}']? [y/n]: ".format(imagedir)):
+        self.copype()
+
+  #ceate new pe enviornment in imagedir
   def copype(self):
-    SysFun().cls()
+    #SysFun().cls()
     cmd = 'ECHO copype amd64 {0} | CALL cmd /k "{1}\Deployment Tools\DandISetEnv.bat"'.format(
       self.imagedir,
       self.getADKDir()
       )
+    SysFun().run(cmd)
     SysFun().pause()
+
+  #if exists, delete imagedir
+  def removePE(self):
+    SysFun().cls()
+    if os.path.exists(self.imagedir):
+      cmd = "powershell rm {0} -Recurse".format(self.imagedir)
+      SysFun().run(cmd)
+    else:
+      print("image directory does not exist!")
+      SysFun().pause()
+
+
 
   def writeISO(self):
     SysFun().cls()
-    cmd = 'ECHO MakeWinPEMedia /ISO {0} {0}\WinPE_amd64_PS.iso | CALL cmd /k "{1}\Deployment Tools\DandISetEnv.bat"'.format(
+    if os.path.exists(self.getISODir()):
+      cmd = "powershell rm {0}".format(self.getISODir())
+      SysFun().run(cmd)
+    cmd = 'ECHO MakeWinPEMedia /iso {0} {1} | CALL cmd /k "{2}\Deployment Tools\DandISetEnv.bat"'.format(
       self.imagedir,
+      self.getISODir(),
       self.getADKDir()
       )
     SysFun().run(cmd)
@@ -43,8 +71,16 @@ class WimManager:
     return self.imagedir + r"\mount"
 
   def getADKDir(self):
-    return r"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit"
+    return DefaultSettings().adk_dir
+
+  def getISODir(self):
+    return self.imagedir + r"\WinPE_amd64_PS.iso"
   
+  def showWorkingDir(self):
+    if os.path.exists(self.imagedir):
+      return self.imagedir
+    return None
+
   def mountImage(self):
     SysFun().cls()
     SysFun().run('Dism /Mount-Image /ImageFile:"{0}" /index:{1} /MountDir:"{2}"'.format(
