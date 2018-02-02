@@ -24,11 +24,7 @@ def main():
 
   while True:
     SysFun().cls()
-    cwd = manager.showWorkingDir()
-    if cwd == None:
-      print("no current working directory!\n")
-    else:
-      print("current working directory '{0}'\n".format(cwd))
+    manager.showWorkingDir()
     choice = SysFun().selectOptionArry(list(map(fix, main_menu)))
     if choice == len(main_menu) - 1:
       break

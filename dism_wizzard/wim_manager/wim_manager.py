@@ -76,10 +76,20 @@ class WimManager:
   def getISODir(self):
     return self.imagedir + r"\WinPE_amd64_PS.iso"
   
-  def showWorkingDir(self):
+  def returnWorkingDir(self):
     if os.path.exists(self.imagedir):
       return self.imagedir
     return None
+
+  def showWorkingDir(self):
+    cwd = self.returnWorkingDir()
+    if cwd == None:
+      print("no current working directory!\n")
+    else:
+      print("current working directory '{0}'".format(cwd))
+      if os.path.exists("{0}\\Windows".format(self.getMountDir())):
+        print("PE image mounted in '{0}'".format(self.getMountDir()))
+      print()
 
   def mountImage(self):
     SysFun().cls()
