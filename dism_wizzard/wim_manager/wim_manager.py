@@ -49,7 +49,19 @@ class WimManager:
       print("image directory does not exist!")
       SysFun().pause()
 
-
+  #Add PS packages to PE image
+  def addPSSupport(self):
+    inner_dir = r"Windows Preinstallation Environment\amd64\WinPE_OCs"
+    self.mountImage()
+    for module in self.ps_packages:
+      cmd = 'Dism /Add-Package /Image:"{0}" /PackagePath:"{1}\\{2}\\{3}"'.format(
+        self.getMountDir(),
+        self.getADKDir(),
+        inner_dir,
+        module
+        )
+      SysFun().run(cmd)
+    SysFun().pause()
 
   def writeISO(self):
     SysFun().cls()

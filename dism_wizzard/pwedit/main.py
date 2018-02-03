@@ -8,8 +8,9 @@ def lookForSAM():
   for vol in SysFun().return_vol_list():
     if os.path.isfile("{0}:{1}".format(vol, path)):
       ans_lst.append(vol)
+  if len(ans_lst) == 0:
+    return ""
   return ", ".join(ans_lst)
-
 
 def main():
   path = r"dism_wizzard\pwedit\ntpwedit64.exe"

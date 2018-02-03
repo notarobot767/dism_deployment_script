@@ -14,6 +14,7 @@ def main():
     ["Write to Bootable USB (WIP)", SysFun().wip],
     ["Create PE", manager.copype],
     ["Remove PE", manager.removePE],
+    ["Add Powershell Support", manager.addPSSupport],
     ["Back..."]
   ]
   
