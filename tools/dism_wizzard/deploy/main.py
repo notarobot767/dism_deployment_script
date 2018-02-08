@@ -9,7 +9,7 @@ from .select_wim_image import selectWimImage
 from .select_install_drivers import selectInstallDrivers
 from .select_high_power_scheme import selectHighPowerScheme
 from .confirm_apply import confirmApply
-from .deploy_image import deployImage
+from .deploy_image import DeployImage
 
 def main(default=DefaultSettings()):
   if default.prompt_select_disk:
@@ -37,7 +37,7 @@ def main(default=DefaultSettings()):
     if not confirmApply(default):
       sys.exit()
 
-  deployImage(default)
+  DeployImage(default)
 
   if default.is_wim_source_netshare:
     SysFun().disconnectNetshare(default)

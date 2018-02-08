@@ -1,65 +1,71 @@
 from ..system_functions import SysFun
 
-#write dynamic disk script and return path
-def _writeDiskScript(default):
-  file = open(default.dynamic_diskscript, "w")
-  file.write("select disk {0}\n".format(default.disk))
-  if default.is_UEFI:
-    script = default.createUEFI_script
-  else:
-    script = default.createMBR_script
-  file.write(SysFun().cat(script))
-  file.close()
-  return default.dynamic_diskscript
+class DeployImage:
+  def __init__(self, default):
+    self.default = default
+    self.deployImage()
 
-def applyPartitioning(default):
-  #SysFun().cls()
-  print("partitioning drive...\n")
-  SysFun().run("diskpart /s {0}".format(_writeDiskScript(default)))
+  #write dynamic disk script and return path
+  def _writeDiskScript(self):
+    file = open(self.default.dynamic_diskscript, "w")
+    file.write("select disk {0}\n".format(self.default.disk))
+    if self.default.is_UEFI:
+      script = self.default.createUEFI_script
+    else:
+      script = self.default.createMBR_script
+    file.write(SysFun().cat(script))
+    file.close()
+    return self.default.dynamic_diskscript
 
-def applyHighPowerScheme(default):
-  if default.use_high_power_scheme:
-    #SysFun().cls()
-    print("applying high power scheme...\n")
-    SysFun().run("powercfg /s {0}".format(default.power_scheme))
+  def applyPartitioning(self):
+    SysFun().cls()
+    print("partitioning drive...\n")
+    SysFun().run("diskpart /s {0}".format(self._writeDiskScript()))
 
-def applyImage(default):
-  #SysFun().cls()
-  print("applying image...\n")
-  SysFun().run("dism /apply-image /imagefile:{0} /index:{1} /applydir:{2}:\\".format(
-    default.getWim(),
-    default.wim_index,
-    default.windows_vol
-    )
-  )
+  def applyHighPowerScheme(self):
+    if self.default.use_high_power_scheme:
+      SysFun().cls()
+      print("applying high power scheme...\n")
+      SysFun().run("powercfg /s {0}".format(self.default.power_scheme))
 
-def applyDrivers(default):
-  if default.install_drivers_if_any and default.isDriverFolderPresent():
-    #SysFun().cls()
-    print("applying drivers...\n")
-    SysFun().run("dism /Image:{0} /Add-Driver /Driver:{1} /Recurse".format(
-      default.getWim(),
-      default.getDriverFolder()
+  def applyImage(self):
+    SysFun().cls()
+    print("applying image...\n")
+    SysFun().run("dism /apply-image /imagefile:{0} /index:{1} /applydir:{2}:\\".format(
+      self.default.getWim(),
+      self.default.wim_index,
+      self.default.windows_vol
       )
     )
 
-def applyBCDBoot(default):
-  #SysFun().cls()
-  print("applying Windows boot manager...\n")
-  if default.is_UEFI:
-    mode = "UEFI"
-  else:
-    mode = "BIOS"
-  SysFun().run("bcdboot {0}:\\Windows /s {1}: /f {2}".format(
-    default.windows_vol,
-    default.system_vol,
-    mode
-    )
-  )
+  def applyDrivers(self):
+    if self.default.install_drivers_if_any and self.default.isDriverFolderPresent():
+      SysFun().cls()
+      print("applying drivers...\n")
+      SysFun().run("dism /Image:{0} /Add-Driver /Driver:{1} /Recurse".format(
+        self.default.getWim(),
+        self.default.getDriverFolder()
+        )
+      )
 
-def deployImage(default):
-  applyPartitioning(default)
-  applyHighPowerScheme(default)
-  applyImage(default)
-  applyDrivers(default)
-  applyBCDBoot(default)
+  def applyBCDBoot(self):
+    #SysFun().cls()
+    print("applying Windows boot manager...\n")
+    if self.default.is_UEFI:
+      mode = "UEFI"
+    else:
+      mode = "BIOS"
+    SysFun().run("bcdboot {0}:\\Windows /s {1}: /f {2}".format(
+      self.default.windows_vol,
+      self.default.system_vol,
+      mode
+      )
+    )
+
+  def deployImage(self):
+    self.applyPartitioning()
+    self.applyHighPowerScheme()
+    self.applyImage()
+    self.applyDrivers()
+    self.applyBCDBoot()
+    

@@ -46,9 +46,9 @@ class DefaultSettings:
     self.is_UEFI = True
       #is the partitioning going to be UEFI
       #false indicates MBR style
-    self.createUEFI_script = r"dism_wizzard\diskpart\createUEFI.bat"
-    self.createMBR_script = r"dism_wizzard\diskpart\createMBR.bat"
-    self.dynamic_diskscript = r"dism_wizzard\diskpart\dynamic_diskscript.bat"
+    self.createUEFI_script = "{0}\\dism_wizzard\\diskpart\\createUEFI.bat".format(self.tools_dir)
+    self.createMBR_script = "{0}\\dism_wizzard\\diskpart\\createMBR.bat".format(self.tools_dir)
+    self.dynamic_diskscript = "{0}\\dism_wizzard\\diskpart\\dynamic_diskscript.bat".format(self.tools_dir)
      #diskscript is the dynamic diskpart script built using the
      #default_disk and either the default create UEFI or MBR by writing
      #the line "select disk ?" followed by appending one of the above scripts
