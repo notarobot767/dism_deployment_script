@@ -13,7 +13,7 @@ def lookForSAM():
   return ", ".join(ans_lst)
 
 def main():
-  path = r"dism_wizzard\pwedit\ntpwedit64.exe"
+  path = "{0}\\dism_wizzard\\pwedit\\ntpwedit64.exe".format(SysFun().getToolDir())
   SysFun().cls()
   print("Found Windows SAMs in: " + lookForSAM())
   var = subprocess.call(path, shell=True)

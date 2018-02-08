@@ -1,5 +1,6 @@
 import subprocess
 import sys
+from .default_settings import DefaultSettings
 
 class SysFun:
   def _pound_text(self, word):
@@ -79,10 +80,13 @@ class SysFun:
     cmd = "CALL powershell"
     self.run(cmd)
 
+  def getToolDir(self):
+    return DefaultSettings().tools_dir
+
   #return list of strings of disks and associated names in order assending
   #example ["Disk 0: generic disk", "Disk 1: samsung something 512GB"]
   def return_disk_list(self):
-    path = r"powershell dism_wizzard\ps\list_disks.ps1"
+    path = "powershell {0}\\dism_wizzard\\ps\\list_disks.ps1".format(self.getToolDir())
     disks = subprocess.Popen(path, shell=True, stdout=subprocess.PIPE).stdout.read().decode().strip()
     def fix(data):
       ans_arry = []
@@ -96,7 +100,7 @@ class SysFun:
   #return list of volumes currently in use (drive letters)
   #example ["C", "D", "N"]
   def return_vol_list(self):
-    path = r"powershell dism_wizzard\ps\list_volumes.ps1"
+    path = "powershell {0}\\dism_wizzard\\ps\\list_volumes.ps1".format(self.getToolDir())
     vols = subprocess.Popen(path, shell=True, stdout=subprocess.PIPE).stdout.read().decode().strip()
     def fix(data):
       return data.split(" : ")[1].split()
