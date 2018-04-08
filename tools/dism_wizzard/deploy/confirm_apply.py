@@ -25,8 +25,8 @@ def confirmApply(default):
   my_str += "apply wim {0}\n".format(default.getWim())
 
   #install drivers
-  if default.install_drivers_if_any and default.isDriverFolderPresent():
-    my_str += "install drivers from folder {0}\n".format(default.getDriverFolder())
+  if not default.driver_dir == None:
+    my_str += "install drivers from folder {0}\n".format(default.driver_dir)
 
   SysFun().cls()
   print(my_str)

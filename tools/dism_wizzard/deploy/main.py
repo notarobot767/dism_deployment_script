@@ -27,8 +27,8 @@ def main(default=DefaultSettings()):
   if default.prompt_select_wim_image:
     default.wim_image = selectWimImage(default)
 
-  if default.prompt_install_drivers_if_any:
-    default.install_drivers_if_any = selectInstallDrivers()
+  if default.prompt_select_drivers:
+    default.driver_dir = selectInstallDrivers(default)
   
   if default.prompt_use_high_power_scheme:
     default.use_high_power_scheme = selectHighPowerScheme()

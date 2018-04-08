@@ -39,12 +39,12 @@ class DeployImage:
     )
 
   def applyDrivers(self):
-    if self.default.install_drivers_if_any and self.default.isDriverFolderPresent():
+    if self.default.driver_dir == None:
       SysFun().cls()
       print("applying drivers...\n")
       SysFun().run("dism /Image:{0} /Add-Driver /Driver:{1} /Recurse".format(
         self.default.getWim(),
-        self.default.getDriverFolder()
+        self.default.driver_dir
         )
       )
 
@@ -63,9 +63,13 @@ class DeployImage:
     )
 
   def deployImage(self):
-    self.applyPartitioning()
-    self.applyHighPowerScheme()
-    self.applyImage()
-    self.applyDrivers()
-    self.applyBCDBoot()
+    SysFun().cls()
+    if self.default.dev_mode:
+      print("dev_mode = True\nwill not write to disk when in development mode!")
+    else:
+      self.applyPartitioning()
+      self.applyHighPowerScheme()
+      self.applyImage()
+      self.applyDrivers()
+      self.applyBCDBoot()
     
