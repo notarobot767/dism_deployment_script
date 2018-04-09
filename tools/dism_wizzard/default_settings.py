@@ -2,12 +2,13 @@ import os.path
 
 class DefaultSettings:
   def __init__(self):
-    self.dev_mode = True
+    self.dev_mode = False
+      #to prevent acidental writes to disk when troubleshooting
+      #function deployImage in deploy_image.py will not associated functions
 
     #script dirs
     ###########
-    self.tools_dir = r"C:\Users\god\git\dism_deployment_script\tools"
-    #self.tools_dir = r"X:\tools"
+    self.tools_dir = r"X:\tools"
       #python should cd to this dir once script has loaded
       #to avoid breaking relative path lookups
 
@@ -34,7 +35,7 @@ class DefaultSettings:
       #even if the netshare is not password protected, Windows
       #may require a bogus user and pw in order to connect
     self.local_wim_dir = r"_images"
-      #findLocalWimSource will attempt to find this dir amoung
+      #findLocalWimSource will attempt to find this root dir amoung
       #the available volumes
       #store your wim files in this folder in the root dir of your drive
 
@@ -45,23 +46,23 @@ class DefaultSettings:
     self.is_UEFI = True
       #is the partitioning going to be UEFI
       #false indicates MBR style
-    self._diskpart_dir = "\\dism_wizzard\\diskpart\\"
-    self.createUEFI_script = "{0}createUEFI.bat".format(self.tools_dir)
-    self.createMBR_script = "{0}createMBR.bat".format(self.tools_dir)
-    self.dynamic_diskscript = "{0}dynamic_diskscript.bat".format(self.tools_dir)
+    self._diskpart_dir = "{0}\\dism_wizzard\\diskpart\\".format(self.tools_dir)
+    self.createUEFI_script = "{0}createUEFI.bat".format(self._diskpart_dir)
+    self.createMBR_script = "{0}createMBR.bat".format(self._diskpart_dir)
+    self.dynamic_diskscript = "{0}dynamic_diskscript.bat".format(self._diskpart_dir)
      #diskscript is the dynamic diskpart script built using the
      #default_disk and either the default create UEFI or MBR by writing
      #the line "select disk ?" followed by appending one of the above scripts
 
     #prompted user for the following or use the defaults?
     #####################################################
-    self.prompt_select_disk = False
-    self.prompt_select_partitioning = False
-    self.prompt_select_wim_source = False
+    self.prompt_select_disk = True
+    self.prompt_select_partitioning = True
+    self.prompt_select_wim_source = True
     self.prompt_select_wim_image = True
     self.prompt_select_drivers = True
     self.prompt_pause_after_connecting_netshare = True
-    self.prompt_use_high_power_scheme = False
+    self.prompt_use_high_power_scheme = True
     self.prompt_confirm_before_applying_image = True
 
     #power scheme
@@ -74,6 +75,8 @@ class DefaultSettings:
 
     #driver directory
     self.driver_dir = None
+      #should be the absolute path of the folder containing drivers
+      #or none to mean do not install drivers
 
     #PE
     self.pe_image_dir = r"C:\WinPE_amd64_PS"
@@ -87,6 +90,7 @@ class DefaultSettings:
       #the default encoding in PS is unicode which does not play
       #nice with some applications when reading script files such as
       #when using the diskpart command
+      #python already uses this, so may be unnecessary
 
   def getWim(self):
     return "{0}\\{1}".format(self.wim_source, self.wim_image)

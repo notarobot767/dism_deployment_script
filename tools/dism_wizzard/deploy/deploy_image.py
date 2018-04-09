@@ -50,7 +50,7 @@ class DeployImage:
 
   def applyBCDBoot(self):
     #SysFun().cls()
-    print("applying Windows boot manager...\n")
+    print("\napplying Windows boot manager...\n")
     if self.default.is_UEFI:
       mode = "UEFI"
     else:
