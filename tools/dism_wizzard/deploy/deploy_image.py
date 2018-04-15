@@ -39,7 +39,7 @@ class DeployImage:
     )
 
   def applyDrivers(self):
-    if self.default.driver_dir == None:
+    if not self.default.driver_dir == None:
       SysFun().cls()
       print("applying drivers...\n")
       SysFun().run("dism /Image:{0} /Add-Driver /Driver:{1} /Recurse".format(
